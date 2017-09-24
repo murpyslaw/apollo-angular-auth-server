@@ -18,7 +18,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon",
     "debug": "nodemon ts-node --inspect ./server.ts",
-    "start": "ts-node --fast ./server.ts"
+    "start-rethink": "rethinkdb&",
+    "start-server": "ts-node --fast ./server.ts",
+    "start": "concurrently \"npm run start-rethink\" \"npm run start-server\""
   },
   "author": "",
   "license": "ISC",
@@ -44,6 +46,7 @@
     "apollo-server-express": "^1.1.2",
     "body-parser": "^1.18.1",
     "chalk": "^2.1.0",
+    "concurrently": "^3.5.0",
     "cors": "^2.8.3",
     "dotenv": "^4.0.0",
     "express": "^4.15.3",

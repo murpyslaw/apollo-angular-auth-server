@@ -11,6 +11,8 @@ import * as express from 'express';
 import * as rethink from 'rethinkdb';
 import * as _ from 'lodash';
 import * as dash from 'rethinkdbdash';
+import * as cors from 'cors';
+import * as timeout from 'connect-timeout';
 
 const PORT = (process.env.PORT || 3000) as number;
 const DB_HOST = "localhost";
@@ -80,7 +82,7 @@ const dashRethink = dash({
 const apolloAuth = new apolloPass({
     db: new RethinkDBDashDriver(dashRethink),
     jwtSecret: 'keyboard-cat',
-    authPath: '/auth',
+    authPath: '/api/auth',
     ROOT_URL: DB_ROOT_URL
 });
 apolloAuth.use('local', localAuth);
@@ -101,6 +103,26 @@ const apolloSvrOptions = {
     resolvers: apolloAuth.resolvers()
 }
 
+//////////
+// cors //
+//////////
+server.use(cors({
+    methods: ['GET', 'POST', 'OPTIONS'],
+    allowedHeaders: [
+        'content-type', 
+        'authorization',
+        'content-length',
+        'x-requested-with', 
+        'accept',
+        'origin' 
+    ],
+    credentials: true,
+    origin: '*'
+}));
+
+/////////
+// api //
+/////////
 server.use('/api',
     logger('combined'),
     postReqParser.json(),

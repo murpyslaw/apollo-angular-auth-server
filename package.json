@@ -16,7 +16,7 @@
   "main": "server.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon",
+    "dev": "concurrently \"npm run start-rethink\" && \"nodemon\" ",
     "debug": "nodemon ts-node --inspect ./server.ts",
     "start-rethink": "rethinkdb&",
     "start-server": "ts-node --fast ./server.ts",
@@ -47,14 +47,17 @@
     "body-parser": "^1.18.1",
     "chalk": "^2.1.0",
     "concurrently": "^3.5.0",
-    "cors": "^2.8.3",
+    "connect-timeout": "^1.9.0",
+    "cors": "^2.8.4",
     "dotenv": "^4.0.0",
     "express": "^4.15.3",
     "express-graphql": "^0.6.6",
     "graphql": "^0.11.3",
     "graphql-tag": "^2.4.2",
+    "graphql-tools": "^1.2.3",
     "lodash": "^4.17.4",
     "morgan": "^1.8.2",
+    "nodemon": "^1.12.1",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
     "passport-middleware": "^1.0.5",
@@ -66,7 +69,5 @@
     "typescript": "^2.4.1",
     "winston": "^2.3.1"
   },
-  "devDependencies": {
-    "nodemon": "^1.11.0"
-  }
+  "devDependencies": {}
 }
